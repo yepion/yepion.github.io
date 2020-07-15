@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="1.XPATH1.1xpath常用规则123456nodename	 选择此节点的所有子节点&#x2F;  			从当前节点选择直接子节点&#x2F;&#x2F; 			从当前节点选择子孙节点. 			选取当前节点..  		选取当前节点的父节点@  			选取属性  2.实例2.1构造解析对象两种方法 12345678910111213141516171819202122232425262728">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python爬虫——解析库的学习">
+<meta property="og:url" content="https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/index.html">
+<meta property="og:site_name" content="yepion的Blog...">
+<meta property="og:description" content="1.XPATH1.1xpath常用规则123456nodename	 选择此节点的所有子节点&#x2F;  			从当前节点选择直接子节点&#x2F;&#x2F; 			从当前节点选择子孙节点. 			选取当前节点..  		选取当前节点的父节点@  			选取属性  2.实例2.1构造解析对象两种方法 12345678910111213141516171819202122232425262728">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-07-15T09:40:50.000Z">
+<meta property="article:modified_time" content="2020-07-15T09:40:50.210Z">
+<meta property="article:author" content="yepion">
+<meta property="article:tag" content="学习">
+<meta name="twitter:card" content="summary">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>python爬虫——解析库的学习</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/yepion/yepion.github.io" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2020/07/14/%E7%88%AC%E5%8F%96%E7%8C%AB%E7%9C%BCtop100%E7%94%B5%E5%BD%B1/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/" target="_blank" rel="noopener"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&text=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&title=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&is_video=false&description=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=python爬虫——解析库的学习&body=Check out this article: https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&title=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&title=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&title=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&title=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&name=python爬虫——解析库的学习&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&t=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-XPATH"><span class="toc-number">1.</span> <span class="toc-text">1.XPATH</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1xpath常用规则"><span class="toc-number">1.1.</span> <span class="toc-text">1.1xpath常用规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-实例"><span class="toc-number">1.2.</span> <span class="toc-text">2.实例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1构造解析对象"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1构造解析对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2选取所有节点"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2选取所有节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3属性匹配"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3属性匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4文本获取"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4文本获取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5获取属性"><span class="toc-number">1.2.5.</span> <span class="toc-text">2.5获取属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6按序选择"><span class="toc-number">1.2.6.</span> <span class="toc-text">2.6按序选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7节点轴选择"><span class="toc-number">1.2.7.</span> <span class="toc-text">2.7节点轴选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Beautiful-Soup"><span class="toc-number">2.</span> <span class="toc-text">2.Beautiful Soup</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-构造对象"><span class="toc-number">2.1.</span> <span class="toc-text">1.构造对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-节点选择器"><span class="toc-number">2.2.</span> <span class="toc-text">2.节点选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-方法"><span class="toc-number">2.3.</span> <span class="toc-text">3.方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-css选择器"><span class="toc-number">2.4.</span> <span class="toc-text">4.css选择器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-pyquery"><span class="toc-number">3.</span> <span class="toc-text">3.pyquery.</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        python爬虫——解析库的学习
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">yepion的Blog...</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-07-15T09:40:50.000Z" itemprop="datePublished">2020-07-15</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/%E5%AD%A6%E4%B9%A0/" rel="tag">学习</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h2 id="1-XPATH"><a href="#1-XPATH" class="headerlink" title="1.XPATH"></a>1.XPATH</h2><h3 id="1-1xpath常用规则"><a href="#1-1xpath常用规则" class="headerlink" title="1.1xpath常用规则"></a>1.1xpath常用规则</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nodename	 选择此节点的所有子节点</span><br><span class="line">&#x2F;  			从当前节点选择直接子节点</span><br><span class="line">&#x2F;&#x2F; 			从当前节点选择子孙节点</span><br><span class="line">. 			选取当前节点</span><br><span class="line">..  		选取当前节点的父节点</span><br><span class="line">@  			选取属性</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-实例"><a href="#2-实例" class="headerlink" title="2.实例"></a>2.实例</h3><h4 id="2-1构造解析对象"><a href="#2-1构造解析对象" class="headerlink" title="2.1构造解析对象"></a>2.1构造解析对象</h4><p>两种方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> html</span><br><span class="line">etree =html.etree</span><br><span class="line"></span><br><span class="line">text = <span class="string">'''</span></span><br><span class="line"><span class="string">&lt;div&gt;</span></span><br><span class="line"><span class="string">&lt;ol&gt;</span></span><br><span class="line"><span class="string">   &lt;li&gt;Coffee&lt;/li&gt;</span></span><br><span class="line"><span class="string">   &lt;li&gt;Tea&lt;/li&gt;</span></span><br><span class="line"><span class="string">   &lt;li&gt;Milk&lt;/li&gt;</span></span><br><span class="line"><span class="string">&lt;/ol&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&lt;ul&gt;</span></span><br><span class="line"><span class="string">   &lt;li&gt;Coffee&lt;/li&gt;</span></span><br><span class="line"><span class="string">   &lt;li&gt;Tea&lt;/li&gt;</span></span><br><span class="line"><span class="string">   &lt;li&gt;Milk&lt;/li&gt;</span></span><br><span class="line"><span class="string">&lt;/ul&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第一种构造xpath解析对象的方法</span></span><br><span class="line">html1 = etree.HTML(text)</span><br><span class="line">result1 = etree.tostring(html1)</span><br><span class="line"><span class="comment"># print(type(result1))</span></span><br><span class="line"><span class="comment"># print(result1.decode('utf-8'))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 第二种构造xpath解析对象的方法</span></span><br><span class="line">html2 = etree.parse(<span class="string">'./html.html'</span>,etree.HTMLParser())<span class="comment">#html.html为文件夹下的html.html文件，内容与text相同</span></span><br><span class="line">result2 = etree.tostring(html2)</span><br><span class="line"><span class="comment"># print(type(result2))</span></span><br><span class="line"><span class="comment"># # print(result2.decode('utf-8'))</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2选取所有节点"><a href="#2-2选取所有节点" class="headerlink" title="2.2选取所有节点"></a>2.2选取所有节点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">from lxml import html</span><br><span class="line">etree &#x3D;html.etree</span><br><span class="line"></span><br><span class="line">text &#x3D; &#39;&#39;&#39;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">&lt;ol&gt;</span><br><span class="line">   &lt;li&gt;Coffee&lt;&#x2F;li&gt;</span><br><span class="line">   &lt;li&gt;Tea&lt;&#x2F;li&gt;</span><br><span class="line">   &lt;li&gt;Milk&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ol&gt;</span><br><span class="line"></span><br><span class="line">&lt;ul&gt;</span><br><span class="line">   &lt;li&gt;Coffee&lt;&#x2F;li&gt;</span><br><span class="line">   &lt;li&gt;Tea&lt;&#x2F;li&gt;</span><br><span class="line">   &lt;li&gt;Milk&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&#39;&#39;&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">html &#x3D; etree.HTML(text)</span><br><span class="line">result&#x3D; html.xpath(&#39;&#x2F;&#x2F;*&#39;)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&lt;Element html at 0x1b6ace6bf08&gt;, &lt;Element body at 0x1b6acff0a08&gt;, &lt;Element div at 0x1b6acff08c8&gt;, &lt;Element ol at 0x1b6acff0988&gt;, &lt;Element li at 0x1b6acff0a48&gt;, &lt;Element li at 0x1b6acff0ac8&gt;, &lt;Element li at 0x1b6acff0b08&gt;, &lt;Element ul at 0x1b6acff0b48&gt;, &lt;Element li at 0x1b6acff0b88&gt;, &lt;Element li at 0x1b6acff0a88&gt;, &lt;Element li at 0x1b6acff0bc8&gt;]</span><br></pre></td></tr></table></figure>
+
+<p>同理可选择子节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">html.xpath(&#39;&#x2F;&#x2F;ol&#x2F;li&#39;)</span><br></pre></td></tr></table></figure>
+
+<p>父节点</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">html = etree.HTML(text)</span><br><span class="line">result= html.xpath(<span class="string">'//ol/..'</span>)</span><br><span class="line">print(result)</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">ol的父节点为div</span><br><span class="line">[&lt;Element div at <span class="number">0x12ee83ab908</span>&gt;]</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3属性匹配"><a href="#2-3属性匹配" class="headerlink" title="2.3属性匹配"></a>2.3属性匹配</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> html</span><br><span class="line">etree =html.etree</span><br><span class="line"></span><br><span class="line">text = <span class="string">'''</span></span><br><span class="line"><span class="string">&lt;div&gt;</span></span><br><span class="line"><span class="string">&lt;ul&gt;</span></span><br><span class="line"><span class="string">   &lt;li class="item-0"&gt;&lt;a href="link1.html"&gt;first item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">   &lt;li class="item-1"&gt;&lt;a href="link2.html"&gt;second item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">   &lt;li class="item-inctive"&gt;&lt;a href="link3.html"&gt;third item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">   &lt;li class="item-1"&gt;&lt;a href="link4.html"&gt;forth item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">   &lt;li class="item-0"&gt;&lt;a href="link5.html"&gt;fifth item&lt;/a&gt;&lt;/li&gt;</span></span><br><span class="line"><span class="string">&lt;/ul&gt;</span></span><br><span class="line"><span class="string">&lt;/div&gt;</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">html = etree.HTML(text)</span><br><span class="line">result= html.xpath(<span class="string">'//li[@class="item-0"]'</span>)<span class="comment">#text中有两个class为item-0的li</span></span><br><span class="line">print(result)</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">[&lt;Element li at <span class="number">0x1ec47c8e9c8</span>&gt;, &lt;Element li at <span class="number">0x1ec47c8e888</span>&gt;]</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-4文本获取"><a href="#2-4文本获取" class="headerlink" title="2.4文本获取"></a>2.4文本获取</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">html = etree.HTML(text)</span><br><span class="line">result= html.xpath(<span class="string">'//li/a/text()'</span>)<span class="comment">#获取a节点中的文本</span></span><br><span class="line">print(result)</span><br><span class="line"></span><br><span class="line"><span class="comment">#结果</span></span><br><span class="line">[<span class="string">'first item'</span>, <span class="string">'second item'</span>, <span class="string">'third item'</span>, <span class="string">'forth item'</span>, <span class="string">'fifth item'</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-5获取属性"><a href="#2-5获取属性" class="headerlink" title="2.5获取属性"></a>2.5获取属性</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">html &#x3D; etree.HTML(text)</span><br><span class="line">result&#x3D; html.xpath(&#39;&#x2F;&#x2F;li&#x2F;a&#x2F;@href&#39;)</span><br><span class="line">print(result)</span><br><span class="line"></span><br><span class="line">#结果</span><br><span class="line">[&#39;link1.html&#39;, &#39;link2.html&#39;, &#39;link3.html&#39;, &#39;link4.html&#39;, &#39;link5.html&#39;]</span><br></pre></td></tr></table></figure>
+
+<p>2.6属性多值匹配</p>
+<p>class 中有可能有多个值，这是就要用到<strong>contains()</strong></p>
+<p>result= html.xpath(‘//li[contains(@class,”item”)]/a/text()’)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">text &#x3D; &#39;&#39;&#39;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">   &lt;li class&#x3D;&quot;item a&quot;&gt;&lt;a href&#x3D;&quot;link1.html&quot;&gt;first item&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&#39;&#39;&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">html &#x3D; etree.HTML(text)</span><br><span class="line">result&#x3D; html.xpath(&#39;&#x2F;&#x2F;li[contains(@class,&quot;item&quot;)]&#x2F;a&#x2F;text()&#39;)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+<p>2.7多属性匹配</p>
+<p>html.xpath(‘//li[contains(@class,”item”) and @name=”item”]/a/text()’)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">text &#x3D; &#39;&#39;&#39;</span><br><span class="line">&lt;div&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">   &lt;li class&#x3D;&quot;item a&quot; name&#x3D;&quot;item&quot;&gt;&lt;a href&#x3D;&quot;link1.html&quot;&gt;first item&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line">&#39;&#39;&#39;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">html &#x3D; etree.HTML(text)</span><br><span class="line">result&#x3D; html.xpath(&#39;&#x2F;&#x2F;li[contains(@class,&quot;item&quot;) and @name&#x3D;&quot;item&quot;]&#x2F;a&#x2F;text()&#39;)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-6按序选择"><a href="#2-6按序选择" class="headerlink" title="2.6按序选择"></a>2.6按序选择</h4><p><a href="https://www.w3school.com.cn/xpath/xpath_functions.asp" target="_blank" rel="noopener">链接</a></p>
+<h4 id="2-7节点轴选择"><a href="#2-7节点轴选择" class="headerlink" title="2.7节点轴选择"></a>2.7节点轴选择</h4><p><a href="https://www.w3school.com.cn/xpath/xpath_operators.asp" target="_blank" rel="noopener">链接</a></p>
+<h2 id="2-Beautiful-Soup"><a href="#2-Beautiful-Soup" class="headerlink" title="2.Beautiful Soup"></a>2.Beautiful Soup</h2><h3 id="1-构造对象"><a href="#1-构造对象" class="headerlink" title="1.构造对象"></a>1.构造对象</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line">html = <span class="string">"""</span></span><br><span class="line"><span class="string">&lt;html&gt;&lt;head&gt;&lt;title&gt;The Dormouse's story&lt;/title&gt;&lt;/head&gt;</span></span><br><span class="line"><span class="string">&lt;body&gt;</span></span><br><span class="line"><span class="string">&lt;p class="title" name="dromouse"&gt;&lt;b&gt;The Dormouse's story&lt;/b&gt;&lt;/p&gt;</span></span><br><span class="line"><span class="string">&lt;p class="story"&gt;Once upon a time there were three little sisters; and their names were</span></span><br><span class="line"><span class="string">&lt;a href="http://example.com/elsie" class="sister" id="link1"&gt;&lt;!-- Elsie --&gt;&lt;/a&gt;,</span></span><br><span class="line"><span class="string">&lt;a href="http://example.com/lacie" class="sister" id="link2"&gt;Lacie&lt;/a&gt; and</span></span><br><span class="line"><span class="string">&lt;a href="http://example.com/tillie" class="sister" id="link3"&gt;Tillie&lt;/a&gt;;</span></span><br><span class="line"><span class="string">and they lived at the bottom of a well.&lt;/p&gt;</span></span><br><span class="line"><span class="string">&lt;p class="story"&gt;...&lt;/p&gt;</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">soup = BeautifulSoup(html, <span class="string">'lxml'</span>)</span><br><span class="line">print(soup.prettify())<span class="comment">#以标准格式输出</span></span><br><span class="line">print(soup.title.string)<span class="comment">#打印title节点中的文本</span></span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line"> &lt;head&gt;</span><br><span class="line">  &lt;title&gt;</span><br><span class="line">   The Dormouse&#39;s story</span><br><span class="line">  &lt;&#x2F;title&gt;</span><br><span class="line"> &lt;&#x2F;head&gt;</span><br><span class="line"> &lt;body&gt;</span><br><span class="line">  &lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;</span><br><span class="line">   &lt;b&gt;</span><br><span class="line">    The Dormouse&#39;s story</span><br><span class="line">   &lt;&#x2F;b&gt;</span><br><span class="line">  &lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p class&#x3D;&quot;story&quot;&gt;</span><br><span class="line">   Once upon a time there were three little sisters; and their names were</span><br><span class="line">   &lt;a class&#x3D;&quot;sister&quot; href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; id&#x3D;&quot;link1&quot;&gt;</span><br><span class="line">    &lt;!-- Elsie --&gt;</span><br><span class="line">   &lt;&#x2F;a&gt;</span><br><span class="line">   ,</span><br><span class="line">   &lt;a class&#x3D;&quot;sister&quot; href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;lacie&quot; id&#x3D;&quot;link2&quot;&gt;</span><br><span class="line">    Lacie</span><br><span class="line">   &lt;&#x2F;a&gt;</span><br><span class="line">   and</span><br><span class="line">   &lt;a class&#x3D;&quot;sister&quot; href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;tillie&quot; id&#x3D;&quot;link3&quot;&gt;</span><br><span class="line">    Tillie</span><br><span class="line">   &lt;&#x2F;a&gt;</span><br><span class="line">   ;</span><br><span class="line">and they lived at the bottom of a well.</span><br><span class="line">  &lt;&#x2F;p&gt;</span><br><span class="line">  &lt;p class&#x3D;&quot;story&quot;&gt;</span><br><span class="line">   ...</span><br><span class="line">  &lt;&#x2F;p&gt;</span><br><span class="line"> &lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br><span class="line">The Dormouse&#39;s story</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-节点选择器"><a href="#2-节点选择器" class="headerlink" title="2.节点选择器"></a>2.节点选择器</h3><ul>
+<li>选择元素</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">soup &#x3D; BeautifulSoup(html, &#39;lxml&#39;)</span><br><span class="line">print(soup.title)</span><br><span class="line">print(soup.head)</span><br><span class="line">print(soup.p)</span><br><span class="line">print(soup.a)</span><br></pre></td></tr></table></figure>
+
+<p>结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;</span><br><span class="line">&lt;head&gt;&lt;title&gt;The Dormouse&#39;s story&lt;&#x2F;title&gt;&lt;&#x2F;head&gt;</span><br><span class="line">&lt;p class&#x3D;&quot;title&quot; name&#x3D;&quot;dromouse&quot;&gt;&lt;b&gt;The Dormouse&#39;s story&lt;&#x2F;b&gt;&lt;&#x2F;p&gt;</span><br><span class="line">&lt;a class&#x3D;&quot;sister&quot; href&#x3D;&quot;http:&#x2F;&#x2F;example.com&#x2F;elsie&quot; id&#x3D;&quot;link1&quot;&gt;&lt;!-- Elsie --&gt;&lt;&#x2F;a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>只能选择第一个匹配到的节点</p>
+<ul>
+<li><p>提取信息</p>
+</li>
+<li><ol>
+<li><p>获取名称</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(soup.title.name)</span><br><span class="line"></span><br><span class="line">#result</span><br><span class="line">title</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+</li>
+</ul>
+<ol start="2">
+<li><p>获取属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">print(soup.p.attrs)</span><br><span class="line">print(soup.p.attrs[&#39;name&#39;])</span><br><span class="line"></span><br><span class="line">#result</span><br><span class="line">&#123;&#39;class&#39;: [&#39;title&#39;], &#39;name&#39;: &#39;dromouse&#39;&#125;</span><br><span class="line">dromouse</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>获取内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">print(soup.p.string)</span><br><span class="line"></span><br><span class="line">#result</span><br><span class="line">The Dormouse&#39;s story</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ul>
+<li><p>嵌套选择</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(soup.head.title.string)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>关联选择</p>
+<p>eg:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(soup.p.contents)</span><br></pre></td></tr></table></figure>
+
+<p>同理：还有</p>
+<p>children子节点</p>
+<p>descendants子孙节点</p>
+<p>parent,父节点</p>
+<p>parents祖先节点</p>
+<p>next_sibling下一个兄弟节点</p>
+<p>previous_sibling上一个兄弟节点</p>
+<p>next_siblings</p>
+<p>previous_siblings</p>
+</li>
+</ul>
+<h3 id="3-方法"><a href="#3-方法" class="headerlink" title="3.方法"></a>3.方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">find_all(name , attrs , recursive , text , **kwargs)</span><br><span class="line"></span><br><span class="line">find_parents() find_parent()</span><br><span class="line">find_parents()返回所有祖先节点，find_parent()返回直接父节点。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">find_next_siblings() find_next_sibling()</span><br><span class="line">find_next_siblings()返回后面所有兄弟节点，find_next_sibling()返回后面第一个兄弟节点。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">find_previous_siblings() find_previous_sibling()</span><br><span class="line">find_previous_siblings()返回前面所有兄弟节点，find_previous_sibling()返回前面第一个兄弟节点。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">find_all_next() find_next()</span><br><span class="line">find_all_next()返回节点后所有符合条件的节点, find_next()返回第一个符合条件的节点。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">find_all_previous() 和 find_previous()</span><br><span class="line">find_all_previous()返回节点后所有符合条件的节点, find_previous()返回第一个符合条件的节点</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="4-css选择器"><a href="#4-css选择器" class="headerlink" title="4.css选择器"></a>4.css选择器</h3><h2 id="3-pyquery"><a href="#3-pyquery" class="headerlink" title="3.pyquery."></a>3.pyquery.</h2>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/yepion/yepion.github.io" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-XPATH"><span class="toc-number">1.</span> <span class="toc-text">1.XPATH</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1xpath常用规则"><span class="toc-number">1.1.</span> <span class="toc-text">1.1xpath常用规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-实例"><span class="toc-number">1.2.</span> <span class="toc-text">2.实例</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1构造解析对象"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1构造解析对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2选取所有节点"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2选取所有节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-3属性匹配"><span class="toc-number">1.2.3.</span> <span class="toc-text">2.3属性匹配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-4文本获取"><span class="toc-number">1.2.4.</span> <span class="toc-text">2.4文本获取</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-5获取属性"><span class="toc-number">1.2.5.</span> <span class="toc-text">2.5获取属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-6按序选择"><span class="toc-number">1.2.6.</span> <span class="toc-text">2.6按序选择</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-7节点轴选择"><span class="toc-number">1.2.7.</span> <span class="toc-text">2.7节点轴选择</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Beautiful-Soup"><span class="toc-number">2.</span> <span class="toc-text">2.Beautiful Soup</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-构造对象"><span class="toc-number">2.1.</span> <span class="toc-text">1.构造对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-节点选择器"><span class="toc-number">2.2.</span> <span class="toc-text">2.节点选择器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-方法"><span class="toc-number">2.3.</span> <span class="toc-text">3.方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-css选择器"><span class="toc-number">2.4.</span> <span class="toc-text">4.css选择器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-pyquery"><span class="toc-number">3.</span> <span class="toc-text">3.pyquery.</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/" target="_blank" rel="noopener"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&text=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&title=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&is_video=false&description=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=python爬虫——解析库的学习&body=Check out this article: https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&title=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&title=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&title=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&title=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&name=python爬虫——解析库的学习&description=" target="_blank" rel="noopener"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://news.ycombinator.com/submitlink?u=https://yepion.github.io/2020/07/15/python%E7%88%AC%E8%99%AB%E2%80%94%E2%80%94%E8%A7%A3%E6%9E%90%E5%BA%93%E7%9A%84%E5%AD%A6%E4%B9%A0/&t=python爬虫——解析库的学习" target="_blank" rel="noopener"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    yepion
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="https://github.com/yepion/yepion.github.io" target="_blank" rel="noopener">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/koharu.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
